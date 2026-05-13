@@ -1,52 +1,62 @@
 gsap.registerPlugin(ScrollTrigger);
 
-/* LOADER */
+/* LENIS SMOOTH SCROLL */
 
-window.addEventListener("load", ()=>{
+const lenis = new Lenis();
 
-  gsap.to(".loader",{
+function raf(time){
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
+/* PAGE LOAD */
+
+gsap.to(".page-transition",{
+  y:"-100%",
+  duration:1.5,
+  ease:"power4.inOut"
+});
+
+/* CURSOR */
+
+const cursor = document.querySelector(".cursor");
+
+window.addEventListener("mousemove",(e)=>{
+
+  gsap.to(cursor,{
+    x:e.clientX,
+    y:e.clientY,
+    duration:0.1
+  });
+
+});
+
+/* SPLIT TEXT */
+
+const splitTypes = document.querySelectorAll(".split");
+
+splitTypes.forEach((char,i)=>{
+
+  const text = new SplitType(char,{types:"chars"});
+
+  gsap.from(text.chars,{
     opacity:0,
+    y:80,
+    rotateX:-90,
+    stagger:0.02,
     duration:1,
-    delay:1,
-    onComplete:()=>{
-      document.querySelector(".loader").style.display="none";
+    ease:"power4.out",
+    scrollTrigger:{
+      trigger:char,
+      start:"top 90%"
     }
   });
 
 });
 
-/* HERO ANIMATION */
-
-gsap.from(".hero-sub",{
-  y:30,
-  opacity:0,
-  duration:1
-});
-
-gsap.from(".hero-title",{
-  y:100,
-  opacity:0,
-  duration:1.4,
-  delay:0.2
-});
-
-gsap.from(".magnetic-btn",{
-  opacity:0,
-  y:30,
-  duration:1,
-  delay:0.6
-});
-
-/* CUSTOM CURSOR */
-
-const cursor = document.querySelector(".cursor");
-
-window.addEventListener("mousemove",(e)=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
-
-/* MAGNETIC BUTTON */
+/* MAGNETIC */
 
 document.querySelectorAll(".magnetic-btn").forEach(btn=>{
 
@@ -59,8 +69,7 @@ document.querySelectorAll(".magnetic-btn").forEach(btn=>{
 
     gsap.to(btn,{
       x:x*0.3,
-      y:y*0.3,
-      duration:0.3
+      y:y*0.3
     });
 
   });
@@ -69,7 +78,73 @@ document.querySelectorAll(".magnetic-btn").forEach(btn=>{
 
     gsap.to(btn,{
       x:0,
-      y:0,
+      y:0
+    });
+
+  });
+
+});
+
+/* MENU */
+
+const menuBtn = document.querySelector(".menu-btn");
+const menu = document.querySelector(".menu-overlay");
+
+let open = false;
+
+menuBtn.addEventListener("click",()=>{
+
+  if(!open){
+
+    gsap.to(menu,{
+      y:"100%",
+      duration:1,
+      ease:"power4.inOut"
+    });
+
+    open = true;
+
+  }else{
+
+    gsap.to(menu,{
+      y:"-100%",
+      duration:1,
+      ease:"power4.inOut"
+    });
+
+    open = false;
+
+  }
+
+});
+
+/* 3D TILT */
+
+document.querySelectorAll(".tilt").forEach(card=>{
+
+  card.addEventListener("mousemove",(e)=>{
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rotateY = ((x / rect.width)-0.5)*20;
+    const rotateX = ((y / rect.height)-0.5)*-20;
+
+    gsap.to(card,{
+      rotateX,
+      rotateY,
+      duration:0.5
+    });
+
+  });
+
+  card.addEventListener("mouseleave",()=>{
+
+    gsap.to(card,{
+      rotateX:0,
+      rotateY:0,
       duration:0.5
     });
 
@@ -77,84 +152,17 @@ document.querySelectorAll(".magnetic-btn").forEach(btn=>{
 
 });
 
-/* PARALLAX */
+/* SCROLL BAR */
 
-gsap.to(".hero-title",{
-  y:150,
-  scrollTrigger:{
-    trigger:".hero",
-    start:"top top",
-    scrub:true
-  }
-});
+window.addEventListener("scroll",()=>{
 
-/* PROJECT CMS */
+  const totalHeight =
+    document.body.scrollHeight - window.innerHeight;
 
-const projects = [
+  const progress =
+    (window.pageYOffset / totalHeight) * 100;
 
-  {
-    title:"Luxury Brand",
-    category:"Brand Identity",
-    image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200"
-  },
-
-  {
-    title:"Architecture Studio",
-    category:"Web Design",
-    image:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200"
-  },
-
-  {
-    title:"Fashion Campaign",
-    category:"Creative Direction",
-    image:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200"
-  }
-
-];
-
-const grid = document.getElementById("projects-grid");
-
-projects.forEach(project=>{
-
-  grid.innerHTML += `
-  
-    <div class="project-card">
-
-      <img src="${project.image}" alt="">
-
-      <div class="project-info">
-        <h3>${project.title}</h3>
-        <p>${project.category}</p>
-      </div>
-
-    </div>
-  
-  `;
-
-});
-
-/* SCROLL ANIMATION */
-
-gsap.utils.toArray(".project-card").forEach(card=>{
-
-  gsap.from(card,{
-    opacity:0,
-    y:80,
-    duration:1,
-    scrollTrigger:{
-      trigger:card,
-      start:"top 85%"
-    }
-  });
-
-});
-
-/* DARK MODE */
-
-const toggle = document.getElementById("theme-toggle");
-
-toggle.addEventListener("click",()=>{
-
-  document.body.classList.toggle("light-mode");
+  document.querySelector(".scroll-progress").style.width =
+    progress + "%";
 
 });
