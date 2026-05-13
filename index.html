@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Portfolio</title>
+
+  <title>Luxury Portfolio</title>
 
   <link rel="stylesheet" href="style.css"/>
 
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
 
+  <!-- LOADER -->
+  <div class="loader">
+    <h1>YOURNAME™</h1>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor"></div>
+
+  <!-- GRAIN -->
+  <div class="grain"></div>
+
+  <!-- NAV -->
   <header class="navbar">
+
     <div class="logo">YOURNAME™</div>
 
     <nav>
@@ -21,79 +40,65 @@
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <button id="theme-toggle">☼</button>
+
   </header>
 
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-top">
-      <p>Designer • Developer • Creative</p>
-    </div>
 
-    <h1>
-      YOUR <br>
-      NAME
+    <p class="hero-sub">
+      CREATIVE DEVELOPER • DESIGNER • DIGITAL EXPERIENCE
+    </p>
+
+    <h1 class="hero-title">
+      ELEVATED <br>
+      DIGITAL <br>
+      EXPERIENCES
     </h1>
 
-    <div class="hero-description">
-      <p>
-        I design and develop digital experiences that blend minimalism,
-        interaction and modern aesthetics.
-      </p>
+    <a href="#work" class="magnetic-btn">
+      Explore Work
+    </a>
+
+  </section>
+
+  <!-- SCROLL TEXT -->
+  <section class="marquee">
+    <div class="marquee-track">
+      MODERN DESIGN ✦ PREMIUM EXPERIENCE ✦ CREATIVE PORTFOLIO ✦
+      MODERN DESIGN ✦ PREMIUM EXPERIENCE ✦ CREATIVE PORTFOLIO ✦
     </div>
   </section>
 
+  <!-- PROJECTS -->
   <section id="work" class="projects">
 
-    <div class="section-title">
-      Selected Work
-    </div>
+    <h2>Selected Work</h2>
 
-    <div class="project-grid">
+    <div id="projects-grid"></div>
 
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="project-info">
-          <h3>Project One</h3>
-          <p>Brand Identity</p>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="project-info">
-          <h3>Project Two</h3>
-          <p>Web Design</p>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="project-info">
-          <h3>Project Three</h3>
-          <p>Development</p>
-        </div>
-      </div>
-
-    </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about" class="about">
 
-    <div class="section-title">
-      About
-    </div>
+    <h2>About</h2>
 
     <p>
-      I create modern websites and digital products with a focus on
-      typography, interaction and simplicity.
+      I create immersive digital experiences focused on elegance,
+      motion, typography and modern interaction systems.
     </p>
 
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="contact">
 
-    <h2>Let’s build something great.</h2>
+    <h2>Let’s create something unforgettable.</h2>
 
-    <a href="mailto:your@email.com" class="contact-btn">
+    <a href="mailto:you@email.com" class="magnetic-btn">
       Contact Me
     </a>
 
